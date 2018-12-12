@@ -9,6 +9,7 @@ public class IFace {
     
     public static Scanner read = new Scanner(System.in);
     static ArrayList<User> users = new ArrayList<User>();
+    static ArrayList<Community> communities = new ArrayList<Community>();
     
     /*main START*/
     public static void main(String[] args) {
@@ -395,6 +396,7 @@ public class IFace {
                 newCmm.adms.add(user);
                 //user.communities.add(newCmm); PODE SER ÚTIL
                 user.ownCmm.add(newCmm);
+                communities.add(newCmm);
                 System.out.println("[!] Comunidade criada com sucesso!");
                 break;
             case 2:
@@ -477,6 +479,21 @@ public class IFace {
                     }
                 }
                 break;
+            case 3:
+                System.out.println("[+] Digite o nome da comunidade:");
+                saux = read.nextLine();
+                newCmm = findCmm(communities,saux);
+                
+                if(newCmm != null){
+                    newCmm.members.add(user);
+                    user.communities.add(newCmm);
+                    System.out.println("[!] Você entrou na comunidade, fique atento as regras!");
+                }else{
+                    System.out.println("[!] ERRO: Comunidade não encontrada!");
+                }
+                
+                break;
+                
         }
         
     }
@@ -591,7 +608,7 @@ public class IFace {
     public static void showCmmMenu(){
         System.out.println("    [+] Digite o valor correspondente a operação a ser feita:");
         System.out.println("            [1] Criar comunidade");//DONE
-        System.out.println("            [2] Minhas comunidades");//TODO
+        System.out.println("            [2] Minhas comunidades");//DONE
         System.out.println("            [3] Entrar em uma comunidade");//TODO
         System.out.println("            [0] Voltar ao menu principal");
     }
