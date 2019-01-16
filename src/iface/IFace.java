@@ -2,6 +2,7 @@
 package iface;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -23,7 +24,7 @@ public class IFace {
         String saux;
         System.out.println("[!] Bem-vindo ao iFace!");
         System.out.println("[+] Digite 1 para FAZER LOGIN, 2 para se CADASTRAR ou 0 para SAIR: ");
-        iaux = read.nextInt();
+        iaux = readNumber();
         saux = read.nextLine();
         
         if(iaux == 1){
@@ -58,7 +59,7 @@ public class IFace {
                    logged(actUser); 
                 }else{
                     System.out.println("[!] A conta está desativada! Digite 1 se deseja recuperar seus dados ou 0 para sair:");
-                    iaux = read.nextInt();
+                    iaux = readNumber();
                     login = read.nextLine();
                     
                     if(iaux == 1){
@@ -70,7 +71,7 @@ public class IFace {
                 }
             }else{
                 System.out.println("[!] ERRO: Senha incorreta! Digite 1 para tentar novamente ou 0 para sair:");
-                iaux = read.nextInt();
+                iaux = readNumber();
                 login = read.nextLine();
 
                 if(iaux == 1){
@@ -82,7 +83,7 @@ public class IFace {
             }
         }else{
             System.out.println("[!] ERRO: Login não encontrado! Digite 1 para tentar novamente ou 0 para sair:");
-            iaux = read.nextInt();
+            iaux = readNumber();
             login = read.nextLine();
             
             if(iaux == 1){
@@ -123,7 +124,7 @@ public class IFace {
                 
             }else{
                 System.out.println("[!] ERRO: As senhas não correspondem! Digite 1 para tentar novamente ou 0 para sair");
-                iaux = read.nextInt();
+                iaux = readNumber();
                 login = read.nextLine();
                 
                 if(iaux == 1){
@@ -134,7 +135,7 @@ public class IFace {
             }
         }else{
             System.out.println("[!] ERRO: O login desejado já está em uso! Digite 1 para tentar novamente ou 0 para sair");
-            iaux = read.nextInt();
+            iaux = readNumber();
             login = read.nextLine();
             
             if(iaux == 1){
@@ -156,7 +157,7 @@ public class IFace {
         
         while(menuOpt != 0){
             showMainMenu();
-            menuOpt = read.nextInt();
+            menuOpt = readNumber();
 
             switch(menuOpt){
                 case 1:
@@ -199,7 +200,7 @@ public class IFace {
         Attribute newAttri;
         
         showEditMenu();
-        editOpt = read.nextInt();
+        editOpt = readNumber();
         saux = read.nextLine();
         switch(editOpt){
             case 1:
@@ -312,7 +313,7 @@ public class IFace {
               
                 toAdd = user.invitations.remove(user.invitations.size() - 1);
                 System.out.println("[!] " + toAdd.name + " enviou uma solicitação de amizade. Digite 1 para ACEITAR e 2 para NEGAR");
-                iaux = read.nextInt();
+                iaux = readNumber();
                 
                 if(iaux == 1){
                     user.friends.add(toAdd);
@@ -385,7 +386,7 @@ public class IFace {
         User foundMember;
         
         showCmmMenu();
-        cmmOpt = read.nextInt();
+        cmmOpt = readNumber();
         saux = read.nextLine();
         
         switch(cmmOpt){
@@ -417,7 +418,7 @@ public class IFace {
                     System.out.println("        [4] Enviar mensagem");//DONE
                     System.out.println("        [0] Voltar ao menu principal");
                     
-                    iaux = read.nextInt();
+                    iaux = readNumber();
                     saux = read.nextLine();
                     
                     switch(iaux){
@@ -457,7 +458,7 @@ public class IFace {
                             System.out.println("        [3] Enviar mensagem");//DONE
                             System.out.println("        [0] Voltar ao menu principal");
 
-                            iaux = read.nextInt();
+                            iaux = readNumber();
                             saux = read.nextLine();
 
                             switch(iaux){
@@ -609,7 +610,7 @@ public class IFace {
         System.out.println("    [+] Digite o valor correspondente a operação a ser feita:");
         System.out.println("            [1] Criar comunidade");//DONE
         System.out.println("            [2] Minhas comunidades");//DONE
-        System.out.println("            [3] Entrar em uma comunidade");//TODO
+        System.out.println("            [3] Entrar em uma comunidade");//DONE
         System.out.println("            [0] Voltar ao menu principal");
     }
     /*showCmmMenu FINiSH*/
@@ -682,5 +683,16 @@ public class IFace {
         }
     }
     /*findName FINISH*/
-    
+        
+    public static int readNumber(){
+        int rNumber = 0;
+        
+        try{
+            rNumber = read.nextInt();
+        }catch(InputMismatchException error){
+            System.out.println("ERRO: Você deve digitar um número!");
+        }
+            
+        return rNumber;
+    }    
 }
